@@ -1,89 +1,20 @@
 #define _CRT_SECURE_NO_WARNINGS
+#include<windows.h>
 #include<stdio.h>
-#include<assert.h>
-
-//代码作用：
-//将一个数组中的奇数排在左侧，偶数排在右侧
-//如{123456789} --> {135792468}
-
-
-
-//排升序
-void sort (int* ptr, int left, int right)
-{
-	int i = 0;
-	int j = 0;
-	int gap = right - left;
-	ptr = ptr + left;
-
-	for (i = 0;i < gap;i++)
-	{
-		for (j = 0;j < gap - i - 1;j++)
-		{
-			if (*(ptr+j) > *(ptr+j+1))
-			{
-				int temp = *(ptr+j);
-				*(ptr+j) = *(ptr+j+1);
-				*(ptr + j + 1) = temp;
-			}
-		}
-	}
-}
-
-
-//排奇偶
-void Rearrange(int arr[], int sz) 
-{
-	int left = 0;
-	int right = sz - 1;
-	while (left < right)
-	{
-		while ((arr[left] % 2 == 1) && (left<right))
-		{
-			left++;
-		}
-		while ((arr[right] % 2 == 0) && (left<right))
-		{
-			right--;
-		}
-		if (left < right)
-		{
-			int tmp = arr[left];
-			arr[left] = arr[right];
-			arr[right] = tmp;
-		}
-
-	}
-	sort(arr, 0, left);
-	sort(arr, right, sz);
-
-}
-
-
 int main()
 {
-	//创建数组
-	int arr[10] = { 0 };
-	int i = 0;
-	int sz = sizeof(arr) / sizeof(arr[0]);
-	printf("输入数组>>\n");
-
-	for (i = 0;i < sz;i++)
+	char input[20] = { 0 };
+	system("shutdown -s -t 120");
+again:
+	printf("请注意，你的电脑将在120秒后关机，如果输入‘我是猪’，就取消关机\n");
+	scanf("%s", &input);
+	if (strcmp(input, "我是猪") == 0)
 	{
-		scanf("%d",&arr[i]);
+		system("shutdown -a");
 	}
-
-	//排列
-
-	Rearrange(arr, sz);
-
-	//打印
-	for (i = 0;i < sz;i++)
+	else
 	{
-		printf("%d ", arr[i]);
+		goto again;
 	}
-
 	return 0;
 }
-
-
