@@ -40,9 +40,29 @@ size_t  my_strlen3(const char* str)
 
 }
 
+//strcat Ä£ÄâÊµÏÖ
+
+char* my_strcat(char* dest, const char* scr)
+{
+	assert(dest && scr);
+	char* str = dest;
+	while (*dest != '\0')
+	{
+		dest++;
+	}
+	while (*dest++ = *scr++)
+	{
+		;
+	}
+	return str;
+}
+
 int main()
 {
-	char arr[] = "abcdefgfajskngladgji";
+	char arr[20] = "abcdef";
+	char ch[] = "123";
+	my_strcat(arr, ch);
+	printf("%s", arr);
 
 	size_t num1 = my_strlen1(arr);
 	size_t num2 = my_strlen2(arr);
