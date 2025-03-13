@@ -4,6 +4,7 @@
 #include<assert.h>
 
 
+
 enum CASE
 {
 	EXST,
@@ -19,7 +20,7 @@ enum CASE
 enum Peoinformaton
 {
 	NAME = 10,
-	SEX = 10,
+	SEX = 5,
 	TELE = 12,
 	ADDR = 30,
 };
@@ -30,7 +31,7 @@ typedef struct INFORMATION
 	char name[NAME];
 	int age;
 	char sex[SEX];
-	int tele[TELE];
+	char tele[TELE];
 	char addr[ADDR];
 }INFORMATION;
 
@@ -41,6 +42,10 @@ typedef struct CONTACT
 	int count;
 }CONTACT;
 
-void modify_contact(CONTACT* son);
+void modify_contact(CONTACT* con);
 
 void add(CONTACT* con);
+
+void show(const CONTACT* con);
+
+void del(CONTACT* con);

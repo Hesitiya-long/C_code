@@ -27,13 +27,16 @@ int main()
 	do
 	{
 		menu();
+		printf("ÇëÑ¡Ôñ>>");
 		scanf("%d", &input);
+		system("cls");
 		switch (input)
 		{
 		case ADD:
 			add(&con);
 			break;
 		case DEL:
+			del(&con);
 			break;
 		case SEARCH:
 			break;
@@ -42,6 +45,7 @@ int main()
 		case SOURT:
 			break;
 		case SHOW:
+			show(&con);
 			break;
 		case EXST:
 			break;
