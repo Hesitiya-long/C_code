@@ -23,7 +23,9 @@ int main()
 {
 	int input = 0;
 	CONTACT con;
+	//初始化
 	modify_contact(&con);
+	read_contact(&con);
 	do
 	{
 		menu();
@@ -39,8 +41,10 @@ int main()
 			del(&con);
 			break;
 		case SEARCH:
+			search(&con);
 			break;
 		case MODIFY:
+			modify(&con);
 			break;
 		case SOURT:
 			break;
@@ -48,6 +52,7 @@ int main()
 			show(&con);
 			break;
 		case EXST:
+			save_contact(&con);
 			break;
 		defaut:
 			printf("输入错误，请重新输入");

@@ -1,13 +1,13 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include"contact.h"
 
-
+//初始化
 void modify_contact(CONTACT* con)
 {
 	con->count = 0;
 	memset(con->information, 0, sizeof(con->information));
 }
-
+//添加
 void add(CONTACT* con)
 {
 	assert(con);
@@ -30,15 +30,14 @@ void add(CONTACT* con)
 	(con->count)++;
 	printf("添加成功\n");
 }
-
-
+//展示
 void show(const CONTACT* con)
 {
 	assert(con);
 	int i = 0;
 	if (con->count == 0)
 	{
-		printf("通讯录为空");
+		printf("通讯录为空\n");
 		return;
 	}
 	printf("%-10s\t%-3s\t%-5s\t%-12s\t%-30s\n", "姓名", "年龄", "性别", "电话", "地址");
@@ -53,7 +52,7 @@ void show(const CONTACT* con)
 	}
 	return;
 }
-
+//删除
 void del(CONTACT* con)
 {
 	assert(con);
@@ -66,7 +65,7 @@ void del(CONTACT* con)
 	int i = 0;
 	printf("请输入要删除人的名字>>");
 	scanf("%s", &del_name);
-	int peo = find_name(con, del_name);
+	int peo = find_name(con, del_name);    //找到名字
 
 	if (peo == -1)
 	{
@@ -82,7 +81,7 @@ void del(CONTACT* con)
 	con->count--;
 	printf("删除成功\n");
 }
-
+//找到名字
 int find_name(CONTACT*con,char* name)
 {
 	assert(name);
@@ -95,4 +94,109 @@ int find_name(CONTACT*con,char* name)
 		}
 	}
 	return -1;
+}
+//查询
+void search(const CONTACT* con)
+{
+	char search_name[NAME] = { 0 };
+	printf("请输入要查询的名字>>");
+	scanf("%s", &search_name);
+	assert(search_name);
+	int peo = find_name(con, search_name);
+	if (peo == -1)
+	{
+		printf("没有找到，请重新查询");
+		return;
+	}
+
+	printf("%-10s\t%-3s\t%-5s\t%-12s\t%-30s\n", "姓名", "年龄", "性别", "电话", "地址");
+	printf("%-10s\t%-3d\t%-5s\t%-12s\t%-30s\n",
+		con->information[peo].name,
+		con->information[peo].age,
+		con->information[peo].sex,
+		con->information[peo].tele,
+		con->information[peo].addr);
+
+}
+//修改
+void modify(CONTACT* con)
+{
+	char modify_name[NAME] = { 0 };
+	printf("请输入要修改的名字>>");
+	scanf("%s", &modify_name);
+	assert(modify_name);
+	int peo = find_name(con, modify_name);
+	if (peo == -1)
+	{
+		printf("没有找到，请重新输入");
+		return;
+	}
+
+	printf("%-10s\t%-3s\t%-5s\t%-12s\t%-30s\n", "姓名", "年龄", "性别", "电话", "地址");
+	printf("%-10s\t%-3d\t%-5s\t%-12s\t%-30s\n",
+		con->information[peo].name,
+		con->information[peo].age,
+		con->information[peo].sex,
+		con->information[peo].tele,
+		con->information[peo].addr);
+
+	printf("请输入修改后的名字>>");
+	scanf("%10s", con->information[peo].name);
+	printf("请输入修改后的年龄>>");
+	scanf("%3d", &(con->information[peo].age));
+	printf("请输入修改后的性别>>");
+	scanf("%5s", con->information[peo].sex);
+	printf("请输入修改后的电话>>");
+	scanf("%12s", &(con->information[peo].tele));
+	printf("请输入修改后的地址>>");
+	scanf("%30s", con->information[peo].addr);
+
+}
+//保存通讯录
+save_contact(CONTACT* con)
+{
+	FILE* pf = fopen("contact.txt", "wb");
+	if (pf == NULL)
+	{
+		printf("%s",strerror(errno));
+		return 1;
+	}
+
+	int i = 0;
+	for (i = 0;i < con->count;i++)
+	{
+		fprintf(pf, "%s %d %s %s %s",
+			con->information[i].name,
+			con->information[i].age,
+			con->information[i].sex,
+			con->information[i].tele,
+			con->information[i].addr);
+	}
+	fclose(pf);
+	pf = NULL;
+}
+
+
+read_contact(CONTACT* con)
+{
+	FILE* pf = fopen("contact.txt", "rb");
+	if (pf == NULL)
+	{
+		printf("%s", strerror(errno));
+		return 1;
+	}
+
+	int i = 0;
+	for (i = 0;i < 100;i++)
+	{
+		sscanf(pf, "%s %d %s %s %s",
+			con->information[i].name,
+			con->information[i].age,
+			con->information[i].sex,
+			con->information[i].tele,
+			con->information[i].addr);
+	}
+	fclose(pf);
+	pf = NULL;
+
 }
