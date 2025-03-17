@@ -25,6 +25,9 @@ int main()
 	CONTACT con;
 	//≥ı ºªØ
 	modify_contact(&con);
+
+	create_contact(&con);
+
 	read_contact(&con);
 	do
 	{

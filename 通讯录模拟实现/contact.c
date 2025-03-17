@@ -162,10 +162,12 @@ save_contact(CONTACT* con)
 		return 1;
 	}
 
+	fprintf(pf, "%d", con->count);
+
 	int i = 0;
 	for (i = 0;i < con->count;i++)
 	{
-		fprintf(pf, "%s %d %s %s %s",
+		fprintf(pf, " %10s %3d %5s %12s %30s",
 			con->information[i].name,
 			con->information[i].age,
 			con->information[i].sex,
@@ -175,23 +177,24 @@ save_contact(CONTACT* con)
 	fclose(pf);
 	pf = NULL;
 }
-
-
+//读取通讯录
 read_contact(CONTACT* con)
 {
 	FILE* pf = fopen("contact.txt", "rb");
 	if (pf == NULL)
 	{
-		printf("%s", strerror(errno));
+		printf("%5s", strerror(errno));
 		return 1;
 	}
 
+	fscanf(pf, "%d", &(con->count));
+
 	int i = 0;
-	for (i = 0;i < 100;i++)
+	for (i = 0;i < con->count;i++)
 	{
-		sscanf(pf, "%s %d %s %s %s",
+		fscanf(pf, " %10s %3d %5s %12s %30s",
 			con->information[i].name,
-			con->information[i].age,
+			&(con->information[i].age),
 			con->information[i].sex,
 			con->information[i].tele,
 			con->information[i].addr);
@@ -199,4 +202,15 @@ read_contact(CONTACT* con)
 	fclose(pf);
 	pf = NULL;
 
+}
+//创建文件
+void create_contact(CONTACT* con)
+{
+	FILE* pf = fopen("contact.txt", "a");
+	//if (fp == NULL) {
+	//	perror("Error opening file");
+	//	return 1;
+	//}
+	fclose(pf);
+	pf = NULL;
 }

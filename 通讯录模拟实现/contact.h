@@ -55,5 +55,8 @@ void search(const CONTACT* con);
 void modify(CONTACT* con);
 //保存通讯录
 save_contact(CONTACT*con);
-
+//读取通讯录
 read_contact(CONTACT* con);
+//创建文件
+void create_contact(CONTACT* con);
+
